@@ -6,7 +6,7 @@ You can run the testing script 3 different ways:
 
 1. Conda:
 
-```
+```bash
 # create conda environment and activate it
 conda create -n hw3 python=2
 source activate hw3
@@ -21,13 +21,13 @@ python hw3_tester.py -vvv -m sample.json -i -s
 
 2. Pip:
 
-```
+```bash
 pip3 install numpy pydot networkx progressbar2 pygraphviz pymdptoolbox
 ```
 
 3. Docker:
 
-```
+```bash
 docker build -t rldm/hw3-tester:v1 .
 docker run --privileged=true --rm \
     -v $PWD:/mnt/hw3-tester \
@@ -36,7 +36,7 @@ docker run --privileged=true --rm \
 
 ## Testing the script
 
-```
+```bash
 python hw3_tester.py -m sample.json -i -s -vvv
 ```
 
