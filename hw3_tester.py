@@ -46,7 +46,8 @@ def get_iterations_with_mdptoolbox(mdp_descr):
                 mdp.transitions,
                 mdp.rewards,
                 mdp.gamma,
-                policy0=initial_policy
+                policy0=initial_policy,
+                eval_type=1
             )
             pi.setSilent()
             pi.run()
