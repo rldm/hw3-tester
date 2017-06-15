@@ -34,11 +34,11 @@ def get_iterations_with_mdptoolbox(mdp_descr):
     log.info('running policy improvement')
     # (policy, v, it)
     results = []
-    bar = progressbar.ProgressBar(maxval=200,
+    bar = progressbar.ProgressBar(maxval=1000,
                                   widgets=[progressbar.Bar('=', '[', ']'), ' ',
                                            progressbar.Percentage()])
     bar.start()
-    for t in range(200):
+    for t in range(1000):
         np.seterr(all='raise')
         try:
             initial_policy = np.random.choice(mdp.nA, size=mdp.nS)
@@ -86,8 +86,12 @@ def verify_mdp(mdp):
     nstates = len(mdp['states'])
     if nstates > 30:
         log.critical('too many states: (' + str(nstates) + ')! seriously?')
-        raise Exception('too many states')
+        raise Exception('too many states: (' + str(nstates) + ')! seriously?')
     log.debug('legal number of states ' + str(nstates))
+
+    if mdp['gamma'] != 0.75:
+        log.critical('Yeah, right. We are going to let that slip... Gamma=' + str(mdp['gamma']) + '!?!?')
+        raise Exception('Yeah, right. We are going to let that slip... Gamma=' + str(mdp['gamma']) + '!?!?')
 
     states = []
     fixed_n_actions = len(mdp['states'][0]['actions'])
@@ -97,11 +101,12 @@ def verify_mdp(mdp):
         nactions = len(s['actions'])
         if nactions > 2:
             log.critical('too many actions on a single state: (' + str(nactions) + ')! won\'t do it!')
-            raise Exception('one of the states has more than 2 actions')
+            raise Exception('too many actions on a single state: (' + str(nactions) + ')! won\'t do it!')
         if fixed_n_actions != nactions:
             log.critical('states should have the same number of actions. Found: (' +
                          str(nactions) + ') and (' + str(fixed_n_actions) + ') clean that up!')
-            raise Exception('one of the states has more than 2 actions')
+            raise Exception('states should have the same number of actions. Found: (' +
+                         str(nactions) + ') and (' + str(fixed_n_actions) + ') clean that up!')
 
         log.debug('state has correct number of actions ' + str(len(s['actions'])))
 
@@ -115,24 +120,24 @@ def verify_mdp(mdp):
 
                 if not t['probability']:
                     log.critical('transition with zero probability, why would you add that???')
-                    raise Exception('no probability found on transition, cannot add it')
+                    raise Exception('transition with zero probability, why would you add that???')
 
                 if t['probability'] < 0:
                     log.critical('negative probability, what am I supposed to do with that???')
-                    raise Exception('probability is negative, cannot add it')
+                    raise Exception('negative probability, what am I supposed to do with that???')
 
                 if t['probability'] > 1:
                     log.critical('a probability greater than 1?? you should go to Vegas!')
-                    raise Exception('probability is greater than 1, cannot add it')
+                    raise Exception('a probability greater than 1?? you should go to Vegas!')
 
                 prob += t['probability']
                 log.debug('    transition id ' + str(t['id']) + ' with prob ' +
                           str(t['probability']) + ' cummulative prob ' + str(prob))
                 trans.append(t)
 
-            if (math.fabs(prob-1.0)) >= 10e-14:
+            if prob != 1.0:
                 log.critical('transition probabilities do not equal 1 for a single action, something\'s wrong...')
-                raise Exception('the sum of the probabilities must equal 1 for all transitions of a single action')
+                raise Exception('transition probabilities do not equal 1 for a single action, something\'s wrong...')
             a['transitions'] = trans
             actions.append(a)
 
