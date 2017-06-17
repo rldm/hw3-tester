@@ -1,5 +1,12 @@
 # HW3 Tester
 
+NOTE: We are using Python 3. Make sure you are too:
+
+```python --version
+(hw3) $ python --version
+Python 3.6.1 :: Continuum Analytics, Inc.
+```
+
 ## Installation:
 
 You can run the testing script 3 different ways:
@@ -8,7 +15,7 @@ You can run the testing script 3 different ways:
 
 ```bash
 # create conda environment and activate it
-conda create -n hw3 python=2
+conda create -n hw3 python=3
 source activate hw3
 
 # install dependencies
