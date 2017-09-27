@@ -19,7 +19,7 @@ conda create -n hw3 python=3
 source activate hw3
 
 # install dependencies
-conda install numpy pydot networkx progressbar
+conda install numpy pydot networkx progressbar2
 pip install pymdptoolbox pygraphviz
 
 # run the script to test the sample mdp
