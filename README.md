@@ -32,6 +32,11 @@ python hw3_tester.py -vvv -m sample.json -i -s
 pip3 install numpy pydot networkx progressbar2 pygraphviz pymdptoolbox
 ```
 
+### pyraphiz failing to install?
+`pygraphviz` requires you to have the graphviz package installed on your OS.
+See this [thread](https://github.com/rldm/hw3-tester/issues/2)
+
+
 3. Docker:
 
 ```bash
