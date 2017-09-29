@@ -15,11 +15,11 @@ RUN apt-get install -y pkg-config
 # clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# switch back to user
-USER $NB_USER
-
 # install necessary packages
 RUN pip3 install --upgrade pip && pip3 install numpy pydot networkx progressbar2 pymdptoolbox pygraphviz
+
+# switch back to user
+USER $NB_USER
 
 # make the dir with notebooks the working dir
 WORKDIR /mnt/hw3-tester
