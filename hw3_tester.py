@@ -132,7 +132,7 @@ def verify_mdp(mdp):
 
                 prob += t['probability']
                 log.debug('    transition id ' + str(t['id']) + ' with prob ' +
-                          str(t['probability']) + ' cummulative prob ' + str(prob))
+                          str(t['probability']) + ' cumulative prob ' + str(prob))
                 trans.append(t)
 
             if prob != 1.0:
