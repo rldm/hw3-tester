@@ -135,7 +135,7 @@ def verify_mdp(mdp):
                           str(t['probability']) + ' cumulative prob ' + str(prob))
                 trans.append(t)
 
-            if np.isclose(prob, 1.0):
+            if not np.isclose(prob, 1.0):
                 log.critical('transition probabilities do not equal 1 for a single action, something\'s wrong...')
                 raise Exception('transition probabilities do not equal 1 for a single action, something\'s wrong...')
             a['transitions'] = trans
