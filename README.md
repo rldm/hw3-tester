@@ -46,6 +46,18 @@ docker run --privileged=true --rm \
     -it rldm/hw3-tester:v1 /bin/bash
 ```
 
+On windows using powershell:
+
+```powershell
+docker build -t rldm/hw3-tester:v1 .
+$WorkingDir = Convert-Path .
+docker run --privileged=true --rm -v $WorkingDir\:/mnt/hw3-tester -it rldm/hw3-tester:v1 /bin/bash
+```
+
+If you run into permissions errors when the docker container is building, you might have to change the Dockerfile to run the pip command before it resets the user back to the non root user.
+
+If you run the test script in the next section and it gives you trouble about pymdptoolbox not being there, rerun the `pip` command inside the container without using `pip3`, use `pip` instead.
+
 ## Testing the script
 
 ```bash
