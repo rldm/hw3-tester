@@ -6,6 +6,7 @@ import mdptoolbox
 import numpy as np
 import progressbar
 import logging as log
+from decimal import *
 
 
 class MDP:
@@ -114,7 +115,8 @@ def verify_mdp(mdp):
         for a in s['actions']:
             log.debug('  action id ' + str(a['id']))
 
-            prob = 0
+            getcontext().prec = 10
+            prob = Decimal(0)
             trans = []
             for t in a['transitions']:
 
@@ -130,7 +132,7 @@ def verify_mdp(mdp):
                     log.critical('a probability greater than 1?? you should go to Vegas!')
                     raise Exception('a probability greater than 1?? you should go to Vegas!')
 
-                prob += t['probability']
+                prob += Decimal(t['probability'])
                 log.debug('    transition id ' + str(t['id']) + ' with prob ' +
                           str(t['probability']) + ' cumulative prob ' + str(prob))
                 trans.append(t)
