@@ -144,11 +144,11 @@ def verify_mdp(mdp):
             actions.append(a)
 
         if s['id'] == 0:
-            init_is_terminal = False
-            if fixed_n_actions == 1 and s['actions'][0]['transitions'][0]['to'] == 0:
-                init_is_terminal = True
-            elif s['actions'][0]['transitions'][0]['to'] == 0 and s['actions'][1]['transitions'][0]['to'] == 0:
-                init_is_terminal = True
+            init_is_terminal = True
+            for action in s['actions']:
+                for transition in action['transitions']:
+                    if transition['to'] != 0:
+                        init_is_terminal = False
 
             if init_is_terminal:
                 log.critical('Initial state is a terminal state!!! Other states will not be reachable, what?!')
