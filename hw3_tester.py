@@ -147,7 +147,8 @@ def verify_mdp(mdp):
             init_is_terminal = False
             if fixed_n_actions == 1 and s['actions'][0]['transitions'][0]['to'] == 0:
                 init_is_terminal = True
-            elif s['actions'][0]['transitions'][0]['to'] == 0 and s['actions'][1]['transitions'][0]['to'] == 0:
+            elif s['actions'][0]['transitions'][0]['to'] == 0 and len(s['actions'][0]['transitions']) == 1 \ 
+                     and s['actions'][1]['transitions'][0]['to'] == 0 and len(s['actions'][1]['transitions']) == 1:
                 init_is_terminal = True
 
             if init_is_terminal:
