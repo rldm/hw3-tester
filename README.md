@@ -2,7 +2,7 @@
 
 NOTE: We are using Python 3. Make sure you are too:
 
-```python --version
+```
 (hw3) $ python --version
 Python 3.6.1 :: Continuum Analytics, Inc.
 ```
