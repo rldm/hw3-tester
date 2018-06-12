@@ -30,6 +30,8 @@ python hw3_tester.py -vvv -m sample.json -i -s
 
 ```bash
 pip3 install numpy pydot networkx progressbar2 pygraphviz pymdptoolbox
+# or
+pip3 install -r requirements.txt
 ```
 
 ### pyraphiz failing to install?
