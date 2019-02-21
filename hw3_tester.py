@@ -115,8 +115,7 @@ def verify_mdp(mdp):
         for a in s['actions']:
             log.debug('  action id ' + str(a['id']))
 
-            getcontext().prec = 10
-            prob = Decimal(0)
+            prob = []
             trans = []
             for t in a['transitions']:
 
@@ -132,12 +131,12 @@ def verify_mdp(mdp):
                     log.critical('a probability greater than 1?? you should go to Vegas!')
                     raise Exception('a probability greater than 1?? you should go to Vegas!')
 
-                prob += Decimal(t['probability'])
+                prob.append(t['probability'])
                 log.debug('    transition id ' + str(t['id']) + ' with prob ' +
-                          str(t['probability']) + ' cumulative prob ' + str(prob))
+                          str(t['probability']) + ' cummulative prob ' + str(msum(prob)))
                 trans.append(t)
 
-            if prob != 1.0:
+            if msum(prob) != 1.0:
                 log.critical('transition probabilities do not equal 1 for a single action, something\'s wrong...')
                 raise Exception('transition probabilities do not equal 1 for a single action, something\'s wrong...')
             a['transitions'] = trans
@@ -163,6 +162,33 @@ def verify_mdp(mdp):
 
     mdp['states'] = states
     return mdp
+
+
+#Reference - http://code.activestate.com/recipes/393090/
+def msum(iterable):
+    "Full precision summation using multiple floats for intermediate values"
+    # Rounded x+y stored in hi with the round-off stored in lo.  Together
+    # hi+lo are exactly equal to x+y.  The inner loop applies hi/lo summation
+    # to each partial so that the list of partial sums remains exact.
+    # Depends on IEEE-754 arithmetic guarantees.  See proof of correctness at:
+    # www-2.cs.cmu.edu/afs/cs/project/quake/public/papers/robust-arithmetic.ps
+
+    partials = []               # sorted, non-overlapping partial sums
+    for x in iterable:
+        i = 0
+        for y in partials:
+            if abs(x) < abs(y):
+                x, y = y, x
+            hi = x + y
+            lo = y - (hi - x)
+            if lo:
+                partials[i] = lo
+                i += 1
+            x = hi
+        partials[i:] = [x]
+    return sum(partials, 0.0)
+
+
 
 def visualize_mdp(mdp, filename):
 
