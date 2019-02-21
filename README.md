@@ -23,7 +23,7 @@ conda install numpy pydot networkx progressbar2
 pip install pymdptoolbox pygraphviz
 
 # run the script to test the sample mdp
-python hw3_tester.py -vvv -m sample.json -i -s
+python hw3_tester.py -vvv -m sample.json -i
 ```
 
 2. Pip:
@@ -63,7 +63,7 @@ If you run the test script in the next section and it gives you trouble about py
 ## Testing the script
 
 ```bash
-python hw3_tester.py -m sample.json -i -s -vvv
+python hw3_tester.py -m sample.json -i -vvv
 ```
 
 Output will show:
