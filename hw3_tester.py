@@ -146,13 +146,9 @@ def verify_mdp(mdp):
             init_is_terminal = False
             if fixed_n_actions == 1 and s['actions'][0]['transitions'][0]['to'] == 0:
                 init_is_terminal = True
-            else:
-                # Look for any action that can take you out of the initial state
-                for action in s['actions']:
-                    for transition in action['transitions']:
-                        if transition['to'] != 0 and transition['probability'] > 0:
-                            break
+            elif s['actions'][0]['transitions'][0]['to'] == 0 and s['actions'][1]['transitions'][0]['to'] == 0:
                 init_is_terminal = True
+
             if init_is_terminal:
                 log.critical('Initial state is a terminal state!!! Other states will not be reachable, what?!')
                 raise Exception('Initial state is a terminal state!!! Other states will not be reachable, what?!')
