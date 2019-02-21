@@ -35,9 +35,8 @@ pip3 install -r requirements.txt
 ```
 
 ### pyraphiz failing to install?
-`pygraphviz` requires you to have the graphviz package installed on your OS.
-See this [thread](https://github.com/rldm/hw3-tester/issues/2)
-
+`pygraphviz` requires you to have the graphviz package installed on your OS.  See this [thread](https://github.com/rldm/hw3-tester/issues/2)
+* Note that `conda install graphviz` and `conda install python-graphviz` are different.  You probably want the latter if using conda
 
 3. Docker:
 
@@ -76,6 +75,9 @@ number of iterations: 2
 ```
 
 An image will be created on the same directory the `json` file.
+
+### Tester raises an exception?
+If, after installing everything successfully above, hw3_tester.py raises an exception that pydot cannot find graphviz libraries (something like `'Warning: Could not load ".../lib/graphviz/libgvplugin_pango.so.6" - file not found`), try the following: `conda install -c conda-forge xorg-libxrender xorg-libxpm`
 
 ## Help?
 
