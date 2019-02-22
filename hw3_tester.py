@@ -222,9 +222,11 @@ def main(args):
     log.info('Verbose output enabled ' + str(log.getLogger().getEffectiveLevel()))
     log.debug(args)
 
-    filename = args.mdp_path
+    filename = args.mdp_data.name
     log.info('attempting to load MDP at ' + filename)
-    with open(filename) as data_file:
+    if filename == '<stdin>':
+        filename = 'out.json'
+    with args.mdp_data as data_file:
         mdp = json.load(data_file)
     log.debug('file loaded successfully')
 
@@ -281,7 +283,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '-m', '--mdp',
         help='Path to the MDP json file',
-        dest='mdp_path', type=str, required=True,
+        dest='mdp_data', type=argparse.FileType('r'), required=True,
     )
     # verify mdp
     parser.add_argument(
