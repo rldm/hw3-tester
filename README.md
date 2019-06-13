@@ -34,12 +34,39 @@ pip3 install numpy pydot networkx progressbar2 pygraphviz pymdptoolbox
 pip3 install -r requirements.txt
 ```
 
-### pyraphiz failing to install?
+### pygraphviz failing to install?
 `pygraphviz` requires you to have the graphviz package installed on your OS.
 See this [thread](https://github.com/rldm/hw3-tester/issues/2)
 
+### Installing `pygraphviz` on Windows
 
-3. Docker:
+*instructions inspired and adapted from [here](https://stackoverflow.com/questions/40809758/howto-install-pygraphviz-on-windows-10-64bit) and [here](https://stackoverflow.com/questions/45093811/installing-pygraphviz-on-windows-10-64-bit-python-3-6/54890705#54890705)*
+
+* Download `graphviz-2.38.msi` (a dependency of `pygraphviz`) from here:
+  * https://graphviz.gitlab.io/_pages/Download/Download_windows.html
+  * Install it manually
+  * Add `graphviz` tot PATH; specifically, add `C:\Program Files (x86)\Graphviz2.38\bin`
+    * from the Windows menu (Windows logo key), search for: "*Environment Variables*" (the entry should be called "*Edit the system environment variables*")
+    * click on Environment Variables
+    * under `User variables for <username>`, find `Path` and double click on it
+    * click `New`
+    * add `C:\Program Files (x86)\Graphviz2.38\bin` and click `OK`
+    * **restart the Anaconda window and other command prompt windows that are open**
+    * *there is an easier way of doing this, through `SETX`, but it is dangerous as it can erase your entire `PATH` variable if you make some typos*
+* Download the `pygraphviz` wheel from here:
+  * **Python 3.5/3.6/3.7**
+    * https://github.com/CristiFati/Prebuilt-Binaries/tree/master/Windows/PyGraphviz
+  * **Python 2.7**
+    * https://www.lfd.uci.edu/~gohlke/pythonlibs/#pygraphviz
+* Navigate to the directory where the downloaded wheel file is located
+* Run `pip install your_downloaded_pygraphviz_file.whl`
+  * Example for **Python 3.5 on Windows 10 amd64**: `pip install pygraphviz-1.5-cp35-cp35m-win_amd64.whl`
+* Now you should have `pygraphviz` successfully installed. Test it properly by running the tester script with the `-s` flag.
+  * `python hw3_tester.py -m sample.json -i -vvv -s`
+
+Another possible solution has been offered [here](https://stackoverflow.com/questions/45093811/installing-pygraphviz-on-windows-10-64-bit-python-3-6/53137438#53137438) but I have not tested it.
+
+1. Docker:
 
 ```bash
 docker build -t rldm/hw3-tester:v1 .
@@ -69,7 +96,7 @@ python hw3_tester.py -m sample.json -i -vvv
 Output will show:
 
 ```
-06/12/2017 01:57:32 AM - INFO: 
+06/12/2017 01:57:32 AM - INFO:
 06/12/2017 01:57:32 AM - INFO: mdp returned median number of iterations 2
 number of iterations: 2
 06/12/2017 01:57:32 AM - INFO: end of script
