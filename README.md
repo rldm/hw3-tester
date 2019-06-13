@@ -34,11 +34,12 @@ pip3 install numpy pydot networkx progressbar2 pygraphviz pymdptoolbox
 pip3 install -r requirements.txt
 ```
 
-### pyraphiz failing to install?
+### pygraphviz failing to install?
 `pygraphviz` requires you to have the graphviz package installed on your OS.
 See this [thread](https://github.com/rldm/hw3-tester/issues/2)
 
-2. *(extra)* Installing `pygraphviz` on Windows
+### Installing `pygraphviz` on Windows
+
 *instructions inspired and adapted from [here](https://stackoverflow.com/questions/40809758/howto-install-pygraphviz-on-windows-10-64bit) and [here](https://stackoverflow.com/questions/45093811/installing-pygraphviz-on-windows-10-64-bit-python-3-6/54890705#54890705)*
 
 * Download `graphviz-2.38.msi` (a dependency of `pygraphviz`) from here:
