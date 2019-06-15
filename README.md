@@ -15,7 +15,7 @@ You can run the testing script 3 different ways:
 
 ```bash
 # create conda environment and activate it
-conda create -n hw3 python=3
+conda create -n hw3 python=3.6
 source activate hw3
 
 # install dependencies
